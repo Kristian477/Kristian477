@@ -1,0 +1,39 @@
+Log_23049329_31.122024
+2024.12.31.14:23:24:.609.debug 239049329 request for connetion Parama 
+2024.12.31.14:23:24.647 service 239049329 request uset  event subscribe 
+2024.12.31.14:23:24..662 service 239049329 request get list of instrument 
+2024.12.31.14:23:25.618 debug 239049329 connetion Parama received (server:wss:rtapi-sg.excall.mobi/rtapi/mt5/trial6)
+
+GoDota2 is one of the oldest and largest DOTA 2 skin sitesactually get help
+
+import assert from 'node:assert';
+import { registerHooks, createRequire } from 'node:module';
+import { writeFileSync } from 'node:fs';
+
+writeFileSync('./bar.js', 'export const id = 123;', 'utf8');
+
+registerHooks({
+  resolve(specifier, context, nextResolve) {
+    const replaced = specifier.replace('foo', 'bar');
+    return nextResolve(replaced, context);
+  },
+  load(url, context, nextLoad) {
+    const result = nextLoad(url, context);
+    return {
+      ...result,
+      source: result.source.toString().replace('123', '456'),
+    };
+  },
+});
+
+// Checks that it works with require.
+const require = createRequire(import.meta.url);
+const required = require('./foo.js');  // Redirected by resolve hook to bar.js
+assert.strictEqual(required.id, 456);  // Replaced by load hook to 456
+
+// Checks that it works with import.
+const imported = await import('./foo.js');  // Redirected by resolve hook to bar.js
+assert.strictEqual(imported.id, 456);  // Replaced by load hook to 456
+
+
+
